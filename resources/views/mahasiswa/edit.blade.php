@@ -1,37 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Mahasiswa</title>
+    <!-- Tambah Bootstrap biar lebih rapi -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Edit Mahasiswa</h1>
+<body class="bg-light">
 
-    <a href="{{ route('mahasiswa.index') }}">Kembali</a>
-
-    @if ($errors->any())
-        <div style="color:red;">
-            <ul>
-                @foreach ($errors->all() as $err)
-                    <li>{{ $err }}</li>
-                @endforeach
-            </ul>
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-warning text-dark">
+            <h3 class="mb-0">Edit Mahasiswa</h3>
         </div>
-    @endif
+        <div class="card-body">
 
-    <form action="{{ route('mahasiswa.update', $mahasiswa->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+            <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary mb-3">← Kembali</a>
 
-        <label>Nama:</label><br>
-        <input type="text" name="nama" value="{{ old('nama', $mahasiswa->nama) }}"><br><br>
+            {{-- Tampilkan Error --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Oops!</strong> Ada kesalahan:<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $err)
+                            <li>{{ $err }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-        <label>NIM:</label><br>
-        <input type="text" name="nim" value="{{ old('nim', $mahasiswa->nim) }}"><br><br>
+            {{-- Form Edit --}}
+            <form action="{{ route('mahasiswa.update', $mahasiswa->id) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-        <label>Jurusan:</label><br>
-        <input type="text" name="jurusan" value="{{ old('jurusan', $mahasiswa->jurusan) }}"><br><br>
+                <div class="mb-3">
+                    <label class="form-label">Nama</label>
+                    <input type="text" name="nama" value="{{ old('nama', $mahasiswa->nama) }}" class="form-control" required>
+                </div>
 
-        <button type="submit">Update</button>
-    </form>
+                <div class="mb-3">
+                    <label class="form-label">NIM</label>
+                    <input type="text" name="nim" value="{{ old('nim', $mahasiswa->nim) }}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Jurusan</label>
+                    <input type="text" name="jurusan" value="{{ old('jurusan', $mahasiswa->jurusan) }}" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">💾 Update</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
