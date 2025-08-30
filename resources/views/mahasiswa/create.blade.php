@@ -2,34 +2,49 @@
 <html>
 <head>
     <title>Tambah Mahasiswa</title>
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Tambah Mahasiswa</h1>
-
-    <a href="{{ route('mahasiswa.index') }}">Kembali</a>
-
-    @if ($errors->any())
-        <div style="color:red;">
-            <ul>
-                @foreach ($errors->all() as $err)
-                    <li>{{ $err }}</li>
-                @endforeach
-            </ul>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Tambah Mahasiswa</h4>
         </div>
-    @endif
+        <div class="card-body">
+            <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary btn-sm mb-3">Kembali</a>
 
-    <form action="{{ route('mahasiswa.store') }}" method="POST">
-        @csrf
-        <label>Nama:</label><br>
-        <input type="text" name="nama" value="{{ old('nama') }}"><br><br>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $err)
+                            <li>{{ $err }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-        <label>NIM:</label><br>
-        <input type="text" name="nim" value="{{ old('nim') }}"><br><br>
+            <form action="{{ route('mahasiswa.store') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label">Nama</label>
+                    <input type="text" name="nama" class="form-control" value="{{ old('nama') }}">
+                </div>
 
-        <label>Jurusan:</label><br>
-        <input type="text" name="jurusan" value="{{ old('jurusan') }}"><br><br>
+                <div class="mb-3">
+                    <label class="form-label">NIM</label>
+                    <input type="text" name="nim" class="form-control" value="{{ old('nim') }}">
+                </div>
 
-        <button type="submit">Simpan</button>
-    </form>
+                <div class="mb-3">
+                    <label class="form-label">Jurusan</label>
+                    <input type="text" name="jurusan" class="form-control" value="{{ old('jurusan') }}">
+                </div>
+
+                <button type="submit" class="btn btn-success">Simpan</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
